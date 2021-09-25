@@ -35,8 +35,7 @@ public class Conexion implements IConexion{
     }
 
     public Connection geConnection() throws Exception {
-        String conexionUrl = "jdbc:sqlserver://LAPTOP-VPV2ADB8\\SQLEXPRESS:1433;databaseName=BDGestionPedido;user=sa;password=sql123";
-        
+        String conexionUrl  = "jdbc:sqlserver://LAPTOP-VPV2ADB8\\SQLEXPRESS:1433;databaseName=BDGestionPedido;user=sa;password=sql123";
         try{
             System.out.println("Conectado.");
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
@@ -47,5 +46,5 @@ public class Conexion implements IConexion{
             System.out.println("OPEN CONNECTION Exception Message: " + e.getMessage()+ ". StackTrace:" + err.toString());
             return null;
         }     
-    }
+    }   
 }

@@ -49,6 +49,7 @@ as
 	'where us.eliminado=0 ' +              
     'and ( p.Nombre  like ''%'+ rtrim(ltrim(@texto))+'%'' or us.Codigo like ''%'+ rtrim(ltrim(@texto))+'%'' or us.Contenido like ''%'+ rtrim(ltrim(@texto))+'%'') '               
     
+	PRINT(@query)   
 	EXECUTE(@query)              
 	
 	set @Total = @@ROWCOUNT  /*recuperar totales*/              

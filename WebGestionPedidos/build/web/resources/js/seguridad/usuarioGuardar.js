@@ -8,7 +8,7 @@ var seleccionados = [];
 
 var UsuarioGuardar = function () {
     this.Core = {
-        contextUrl: window.location.origin + "/WebGestionDelivery/",
+        contextUrl: window.location.origin + "/WebGestionPedidos/",
         apis: {
             urlSingle: 'usuario/getSingle',
             urlGuardar: 'usuario/save',

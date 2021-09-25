@@ -8,7 +8,7 @@ var oUsuario= null;
 
 var Usuario = function(){
     this.Core = {
-        contextUrl: window.location.origin + "/WebGestionDelivery/usuario/",
+        contextUrl: window.location.origin + "/WebGestionPedidos/usuario/",
         listParams: {
             ordenamiento: 'fecha desc',
             paginacion: {

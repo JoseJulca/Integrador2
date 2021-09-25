@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-var oUsuario= null;
+var oRol= null;
 
-var Usuario = function(){
+var Rol = function(){
     this.Core = {
-        contextUrl: window.location.origin + "/WebGestionPedidos/usuario/",
+        contextUrl: window.location.origin + "/WebGestionPedidos/rol/",
         listParams: {
             ordenamiento: 'fecha desc',
             paginacion: {
@@ -102,12 +102,12 @@ var Usuario = function(){
                         $("#tablaResultado tbody")
                         .append($("<tr>")
                             .append($('<td>')
-                                .append($('<a href="createUsuario?id=' + element.id + '" class="btn btn-outline-primary editar" style="margin: 2px 2px 2px 2px; padding: 2px 2px 2px 2px" data-id="' + element.id + '" ><span class="material-icons">edit</span></span>')))
+                                .append($('<a href="createRol?id=' + element.id + '" class="btn btn-outline-primary editar" style="margin: 2px 2px 2px 2px; padding: 2px 2px 2px 2px" data-id="' + element.id + '" ><span class="material-icons">edit</span></span>')))
                             .append($('<td>')
                                 .append($('<span class="btn btn-outline-danger eliminar" style="margin:2px 2px 2px 2px;padding:2px 2px 2px 2px" data-id="' + element.id + '"><span class="material-icons">remove</span></span>')))
                             .append($("<td>").text(element.codigo))
                             .append($("<td>").text(element.nombre))
-                            .append($("<td>").text(element.roles))                    
+                            .append($("<td>").text(element.formularios))                    
                             .append($("<td>").text(element.fecha))
                             .append($("<td>").text(element.estado))
                         );
@@ -139,7 +139,7 @@ var Usuario = function(){
         },
         exportarExcel: function () {
             var me = this;
-            var nameFile = "Item";
+            var nameFile = "Rol";
             var oParam = me.getParams();
             var apiUrl = me.contextUrl + me.apis.urlListar;
             var url = `${apiUrl}?texto=${oParam.texto}&ordenamiento=${me.listParams.ordenamiento}&pagina=${0}&tamanio=${0}`;
@@ -151,7 +151,7 @@ var Usuario = function(){
                     table += "<tr>";
                     table += "<td style='font-weight: bold;background-color: #D8F6CE;'>Codigo</td>";
                     table += "<td style='font-weight: bold;background-color: #D8F6CE;'>Nombre</td>";
-                    table += "<td style='font-weight: bold;background-color: #D8F6CE;'>Roles</td>";
+                    table += "<td style='font-weight: bold;background-color: #D8F6CE;'>Formularios</td>";
                     table += "<td style='font-weight: bold;background-color: #D8F6CE;'>Fecha de Creacion</td>";
                     table += "<td style='font-weight: bold;background-color: #D8F6CE;'>Estado</td>";
                     table += "</tr>";    
@@ -159,7 +159,7 @@ var Usuario = function(){
                         table += "<tr>";
                         table += "<td>"+element.codigo+"</td>";
                         table += "<td>"+element.nombre+"</td>";
-                        table += "<td>"+element.roles+"</td>";
+                        table += "<td>"+element.formularios+"</td>";
                         table += "<td>"+element.fecha+"</td>";
                         table += "<td>"+element.estado+"</td>";
                         table += "</tr>";    
@@ -188,7 +188,7 @@ var Usuario = function(){
             var me = this;
             Swal.fire({
                 title: "",
-                text: BI.ConfirmaEliminar("este Usuario"),
+                text: BI.ConfirmaEliminar("este Rol"),
                 icon: "warning",
                 dangerMode: true,
                 showCancelButton: true,
@@ -222,6 +222,8 @@ var Usuario = function(){
 };
 
 $(function(e){
-    oUsuario = new Usuario();
-    oUsuario.Core.init();
+    oRol = new Rol();
+    oRol.Core.init();
 });  
+
+
