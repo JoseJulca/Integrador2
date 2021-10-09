@@ -55,33 +55,59 @@ public class LoginDAO {
                 usu.setNombre(rst.getString("nombre").trim());
                 usu.setCodigo(rst.getString("codigo").trim());
                 usu.setCorreo(rst.getString("correo").trim());
+                usu.setIntentos(rst.getInt("intentos"));
+                usu.setEstado(rst.getInt("idEstado"));
             } 
             
             if(!usu.getId().equals("")){
-                SQLCLL01 = "{CALL uspMenuBuscarPorIdUsuario(?)}";
-                cstmt01 = cnx.prepareCall(SQLCLL01);
-                cstmt01.setString(1, usu.getId());
-                cstmt01.execute();
-                
-                rst = cstmt01.getResultSet();
-                
-                while (rst.next()) {
-                    menu = new MenuQuery();
-                    menu.setId(rst.getString("id").trim());
-                    menu.setCodigo(rst.getString("codigo").trim());
-                    menu.setNombre(rst.getString("nombre"));
-                    menu.setUrl(rst.getString("url"));
-                    menu.setModulo(rst.getString("modulo"));
-                    menu.setIdModulo(rst.getInt("idModulo"));
-                    menus.add(menu);
-                } 
-                usu.setMenus(menus);
-                
-                usu.setApiEstado(Status.Ok);
+                if(usu.getEstado() == 1){
+                    SQLCLL01 = "{CALL uspMenuBuscarPorIdUsuario(?)}";
+                    cstmt01 = cnx.prepareCall(SQLCLL01);
+                    cstmt01.setString(1, usu.getId());
+                    cstmt01.execute();
+
+                    rst = cstmt01.getResultSet();
+
+                    while (rst.next()) {
+                        menu = new MenuQuery();
+                        menu.setId(rst.getString("id").trim());
+                        menu.setCodigo(rst.getString("codigo").trim());
+                        menu.setNombre(rst.getString("nombre"));
+                        menu.setUrl(rst.getString("url"));
+                        menu.setModulo(rst.getString("modulo"));
+                        menu.setIdModulo(rst.getInt("idModulo"));
+                        menus.add(menu);
+                    } 
+                    usu.setMenus(menus);
+
+                    usu.setApiEstado(Status.Ok);
+                    
+                    //limpiar el contador a cero
+                    SQLCLL01 = "{CALL uspUsuarioIntentosIncorrectos(?,?)}";
+                    cstmt01 = cnx.prepareCall(SQLCLL01);
+                    cnx.setAutoCommit(false);
+                    cstmt01.setString(1, input.getUsuario());
+                    cstmt01.setInt(2, 2);
+                    cstmt01.execute();
+                    cnx.commit();                
+                }
+                else{
+                    usu.setApiEstado(Status.Error);
+                    usu.setApiMensaje(Mensaje.UsuarioInactivo);
+                }
             }
             else{
                 usu.setApiEstado(Status.Error);
                 usu.setApiMensaje(Mensaje.DatosInvalidos);
+                
+                //aumentar la cantidad de intentos
+                SQLCLL01 = "{CALL uspUsuarioIntentosIncorrectos(?,?)}";
+                cstmt01 = cnx.prepareCall(SQLCLL01);
+                cnx.setAutoCommit(false);
+                cstmt01.setString(1, input.getUsuario());
+                cstmt01.setInt(2, 1);
+                cstmt01.execute();
+                cnx.commit();                
             } 
         }catch(Exception e){
             usu = new UsuarioLoginIndOutput();

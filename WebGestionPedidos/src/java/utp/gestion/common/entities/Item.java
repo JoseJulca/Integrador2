@@ -3,30 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utp.gestion.common.businessObject;
+package utp.gestion.common.entities;
 
-import java.util.List;
 import utp.gestion.classes.SingleQuery;
+
 /**
  *
  * @author José
  */
-public class UsuarioLoginIndOutput extends SingleQuery{
+public class Item extends SingleQuery{
     private String id;
     private String codigo;
+    private int clase;
     private String nombre;
-    private String correo;
-    private int intentos;
+    private String nombreComercial;
+    private String descripcion;
     private int estado;
-    private List<MenuQuery> menus;
-    
-    public UsuarioLoginIndOutput()
-    {
-        this.id = "";
-        this.codigo="";
-        this.nombre = "";
-        this.correo = "";
-    }
     
     /**
      * @return the id
@@ -57,6 +49,20 @@ public class UsuarioLoginIndOutput extends SingleQuery{
     }
 
     /**
+     * @return the clase
+     */
+    public int getClase() {
+        return clase;
+    }
+
+    /**
+     * @param clase the clase to set
+     */
+    public void setClase(int clase) {
+        this.clase = clase;
+    }
+
+    /**
      * @return the nombre
      */
     public String getNombre() {
@@ -71,45 +77,31 @@ public class UsuarioLoginIndOutput extends SingleQuery{
     }
 
     /**
-     * @return the correo
+     * @return the nombreComercial
      */
-    public String getCorreo() {
-        return correo;
+    public String getNombreComercial() {
+        return nombreComercial;
     }
 
     /**
-     * @param correo the correo to set
+     * @param nombreComercial the nombreComercial to set
      */
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-    
-    /**
-     * @return the menus
-     */
-    public List<MenuQuery> getMenus() {
-        return menus;
+    public void setNombreComercial(String nombreComercial) {
+        this.nombreComercial = nombreComercial;
     }
 
     /**
-     * @param menus the menus to set
+     * @return the descripcion
      */
-    public void setMenus(List<MenuQuery> menus) {
-        this.menus = menus;
-    }
-    
-        /**
-     * @return the intentos
-     */
-    public int getIntentos() {
-        return intentos;
+    public String getDescripcion() {
+        return descripcion;
     }
 
     /**
-     * @param intentos the intentos to set
+     * @param descripcion the descripcion to set
      */
-    public void setIntentos(int intentos) {
-        this.intentos = intentos;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     /**
@@ -125,5 +117,5 @@ public class UsuarioLoginIndOutput extends SingleQuery{
     public void setEstado(int estado) {
         this.estado = estado;
     }
+    
 }
-

@@ -8,7 +8,8 @@ usu.Codigo as codigo,
 per.Nombre  as nombre,      
 usu.contenido as correo,      
 [dbo].[ufnCatalogoEstadoDevolver](1001, usu.estado) as estado ,    
-usu.Estado as idEstado    
+usu.Estado as idEstado,
+usu.Intentos as intentos
 from [Usuario] usu      
 inner join [Persona] per      
 on usu.IdPersona = per.IdPersona      
