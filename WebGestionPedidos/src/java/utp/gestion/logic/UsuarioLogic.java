@@ -17,6 +17,7 @@ import utp.gestion.classes.SingleQuery;
 import utp.gestion.classes.Status;
 import utp.gestion.common.businessObject.UsuarioInput;
 import utp.gestion.data.UsuarioDAO;
+import utp.gestion.classes.Encoder;
 
 /**
  *
@@ -24,6 +25,7 @@ import utp.gestion.data.UsuarioDAO;
  */
 public class UsuarioLogic {
     private final UsuarioDAO dao = new UsuarioDAO();
+    Encoder mencode = new Encoder();
     
     public DataQuery search(DataQueryInput input) throws Exception{
         return dao.search(input);
@@ -76,6 +78,8 @@ public class UsuarioLogic {
         checkstatus = Validate(input,"");
         
         if(checkstatus.getApiEstado().equals(Status.Ok)){   
+            String password = mencode.encode(input.getContrasenia());
+            input.setContrasenia(password);
             checkstatus = dao.create(input);
         }
         
@@ -88,6 +92,10 @@ public class UsuarioLogic {
         checkstatus = Validate(input,"editar");
         
         if(checkstatus.getApiEstado().equals(Status.Ok)){   
+            if(input.isCambiarContrasenia()){
+                String password = mencode.encode(input.getContrasenia());
+                input.setContrasenia(password);
+            }
             checkstatus = dao.update(input);
         }
         
