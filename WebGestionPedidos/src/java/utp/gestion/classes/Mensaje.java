@@ -52,4 +52,17 @@ public class Mensaje {
     public static String ItemDescripcion = "Has omitido ingresar una Descripci\u00f3n para el producto.";
     public static String ItemDescripcionMax = "La Descripci\u00f3n que est\u00e1s intentando ingresar tiene m\u00e1s de 100 caracteres.";
     public static String ItemEstado = "Has omitido seleccionar un Estado v\u00e1lido.";
+    
+    //Precio
+    public static String GuardarPrecio="Se guard\u00f3 Precio satisfactoriamente.";
+    public static String NoExistenPrecio ="No existen Precios.";
+    public static String NoExistePrecio ="No existe Precio.";
+    public static String EliminarPrecio = "Se elimin\u00f3 Precio satisfactoriamente.";
+    public static String PrecioBaseIdItem = "Has omitido seleccionar un Producto.";
+    public static String PrecioBaseIdItemVacio = "Has omitido seleccionar un Producto.";
+    public static String PrecioBasePrecio = "Has omitido ingresar un Precio Base para el producto.";
+    public static String PrecioBaseFechaVigencia = "Has omitido elegir una Fecha v\u00e1lida.";
+    public static String PrecioBaseFechaVigenciaNoMenor = "La fecha que intentas elegir es anterior al d\u00eda de hoy. Selecciona una fecha mayor o igual a la del d\u00eda actual.";
+    public static String PrecioBaseRepetido = "Ya se cre\u00f3 un Precio Base con la misma fecha de vigencia para este producto Por favor elige una fecha distinta.";
+
 }
