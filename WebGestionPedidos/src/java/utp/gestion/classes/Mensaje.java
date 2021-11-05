@@ -64,5 +64,8 @@ public class Mensaje {
     public static String PrecioBaseFechaVigencia = "Has omitido elegir una Fecha v\u00e1lida.";
     public static String PrecioBaseFechaVigenciaNoMenor = "La fecha que intentas elegir es anterior al d\u00eda de hoy. Selecciona una fecha mayor o igual a la del d\u00eda actual.";
     public static String PrecioBaseRepetido = "Ya se cre\u00f3 un Precio Base con la misma fecha de vigencia para este producto Por favor elige una fecha distinta.";
-
+    
+    //Zonal
+    public static String NoExistenZonal ="No existen Zonales.";
+    public static String CoberturaInValida ="Dirección fuera de rango de cobertura.";
 }
