@@ -21,9 +21,8 @@ import utp.gestion.classes.DataQueryInput;
 import utp.gestion.classes.Mensaje;
 import utp.gestion.classes.SingleQuery;
 import utp.gestion.classes.Status;
-import utp.gestion.common.businessObject.UsuarioInput;
-import utp.gestion.common.businessObject.UsuarioRolQuery;
-import utp.gestion.common.entities.Usuario;
+import utp.gestion.common.businessObject.RepartidorInput;
+import utp.gestion.common.entities.Repartidor;
 import utp.gestion.provider.Conexion;
 import utp.gestion.provider.IConexion;
 
@@ -31,10 +30,10 @@ import utp.gestion.provider.IConexion;
  *
  * @author José
  */
-public class UsuarioDAO {
+public class RepartidorDAO {
     private final IConexion conexion = new Conexion();
 
-    public UsuarioDAO() {
+    public RepartidorDAO() {
     }
     
     public DataQuery search(DataQueryInput input) throws Exception{
@@ -44,7 +43,7 @@ public class UsuarioDAO {
         CallableStatement cstmt01 = null;
         ResultSet rs01 = null;
         String SQLCLL01;
-        SQLCLL01 = "{CALL uspUsuarioBuscar(?,?,?,?,?)}";
+        SQLCLL01 = "{CALL uspRepartidorBuscar(?,?,?,?,?)}";
 
         Connection cnx = null;
         
@@ -71,8 +70,8 @@ public class UsuarioDAO {
                 mapRtn.put("id", rs01.getString("id").trim());
                 mapRtn.put("codigo", rs01.getString("codigo").trim());
                 mapRtn.put("nombre", rs01.getString("nombre").trim());
-                mapRtn.put("correo", rs01.getString("correo"));
-                mapRtn.put("roles", rs01.getString("roles"));
+                mapRtn.put("telefono", rs01.getString("telefono"));
+                mapRtn.put("zonal", rs01.getString("zonal"));
                 mapRtn.put("fecha", rs01.getString("fecha"));
                 mapRtn.put("estado", rs01.getString("estado"));
                 dataList.add(mapRtn);
@@ -117,13 +116,11 @@ public class UsuarioDAO {
     }
     
     public SingleQuery singleById(String id) throws Exception{
-        Usuario obj = null;
-        UsuarioRolQuery rol = null;
-        List<UsuarioRolQuery> roles = new ArrayList<>();
+        Repartidor obj = null;
         CallableStatement cstmt01 = null;
         ResultSet rs01 = null;
         String SQLCLL01;
-        SQLCLL01 = "{CALL uspUsuarioInd(?)}";
+        SQLCLL01 = "{CALL uspRepartidorInd(?)}";
 
         Connection cnx = null;
         
@@ -136,49 +133,30 @@ public class UsuarioDAO {
             rs01 = cstmt01.getResultSet();
             
             while (rs01.next()) {
-                obj = new Usuario();
+                obj = new Repartidor();
                 obj.setId(rs01.getString("id").trim());
                 obj.setCodigo(rs01.getString("codigo").trim());
-                obj.setContenido(rs01.getString("contenido"));
+                obj.setTelefono(rs01.getString("telefono"));
                 obj.setIdPersona(rs01.getString("idPersona"));
                 obj.setNombre(rs01.getString("nombre"));
                 obj.setTipoDocumento(rs01.getInt("tipoDocumento"));
                 obj.setNumeroDocumento(rs01.getString("numeroDocumento"));
                 obj.setTelefono(rs01.getString("telefono"));
+                obj.setIdZonalVenta(rs01.getString("idZonalVenta"));
                 obj.setEstado(rs01.getInt("estado"));
                 obj.setApiEstado(Status.Ok);
             }
             
-            if(obj == null){
-                obj = new Usuario();
-                obj.setApiEstado(Status.Error);
-            }
-            else{
-                SQLCLL01 = "{CALL uspUsuarioRolBuscarPorIdUsuario(?)}";
-                cstmt01 = cnx.prepareCall(SQLCLL01);
-                cstmt01.setString(1, obj.getId());
-                cstmt01.execute();
-                
-                rs01 = cstmt01.getResultSet();
-                
-                while (rs01.next()) {
-                    rol = new UsuarioRolQuery();
-                    rol.setId(rs01.getString("id").trim());
-                    rol.setCodigo(rs01.getString("codigo").trim());
-                    rol.setNombre(rs01.getString("nombre"));
-                    roles.add(rol);
-                } 
-                obj.setRoles(roles);
-            }
+
             
         }catch(SQLException ex){
-            obj = new Usuario();
+            obj = new Repartidor();
             obj.setApiEstado(Status.Error);
             obj.setApiMensaje(Mensaje.ErrorServidor);
             String data = ex.getMessage();
             System.out.println("SQLException -> Message: " + data);
         }catch (Exception e) {
-            obj = new Usuario();
+            obj = new Repartidor();
             obj.setApiEstado(Status.Error);
             obj.setApiMensaje(Mensaje.ErrorServidor);
             String data = e.getMessage();
@@ -203,7 +181,7 @@ public class UsuarioDAO {
         return obj;
     }
     
-    public CheckStatus create(UsuarioInput input)throws SQLException, Exception{
+    public CheckStatus create(RepartidorInput input)throws SQLException, Exception{
         CheckStatus checkstatus = new CheckStatus();
         RepositoryDAO _repository = new RepositoryDAO();
         CallableStatement cstmt01 = null;
@@ -238,17 +216,16 @@ public class UsuarioDAO {
             }
             
             if(!id.equals("")){                
-                codigo = _repository.getNomenclatura("Usuario");
+                codigo = _repository.getNomenclatura("Repartidor");
                 
-                SQLCLL01 = "{CALL uspUsuarioGuardar(?,?,?,?,?,?,?)}";
+                SQLCLL01 = "{CALL uspRepartidorGuardar(?,?,?,?,?,?)}";
                 cstmt01 = cnx.prepareCall(SQLCLL01);
-                cstmt01.setString(1, codigo);
-                cstmt01.setString(2, input.getContrasenia());
-                cstmt01.setString(3, input.getCorreo());
-                cstmt01.setString(4, id);
-                cstmt01.setInt(5, input.getEstado());
-                cstmt01.setString(6, input.getUsuario());
-                cstmt01.setBoolean(7, false); 
+                cstmt01.setString(1, id);
+                cstmt01.setString(2, input.getIdZonalVenta());
+                cstmt01.setString(3, codigo);
+                cstmt01.setInt(4, input.getEstado());
+                cstmt01.setString(5, input.getUsuario());
+                cstmt01.setBoolean(6, false); 
                 cstmt01.execute();
                 
                 rst = cstmt01.getResultSet();
@@ -261,25 +238,13 @@ public class UsuarioDAO {
                 while (rst.next()) {
                     id= rst.getString("id");
                 }
-                
+                cnx.commit();
                 checkstatus.setId(id);
                 checkstatus.setCodigo(codigo);
                 checkstatus.setApiEstado(Status.Ok);
-                checkstatus.setApiMensaje(Mensaje.GuardarUsuario);
+                checkstatus.setApiMensaje(Mensaje.GuardarRepartidor);
+               
                 
-                if (input.getRoles().length != 0){
-                    for (String rol : input.getRoles()) {
-                        //crear rol
-                        SQLCLL01 = "{CALL uspUsuarioRolGuardar(?,?,?,?)}";
-                        cstmt01 = cnx.prepareCall(SQLCLL01);
-                        cstmt01.setString(1, id);
-                        cstmt01.setString(2, rol);
-                        cstmt01.setString(3, input.getUsuario());
-                        cstmt01.setBoolean(4, false); 
-                        cstmt01.execute();
-                    }
-                }
-                cnx.commit();
             }
         } catch (Exception e) {
             checkstatus.setApiEstado(Status.Error);
@@ -295,7 +260,7 @@ public class UsuarioDAO {
         return checkstatus; 
     }
     
-    public CheckStatus update(UsuarioInput input)throws SQLException, Exception{
+    public CheckStatus update(RepartidorInput input)throws SQLException, Exception{
         CheckStatus checkstatus = new CheckStatus();
         RepositoryDAO _repository = new RepositoryDAO();
         CallableStatement cstmt01 = null;
@@ -305,7 +270,7 @@ public class UsuarioDAO {
         String id="";        
         String codigo = "";
         try{
-            SQLCLL01 = "{CALL uspUsuarioActualizar(?,?,?,?,?,?,?,?,?,?)}";
+            SQLCLL01 = "{CALL uspRepartidorActualizar(?,?,?,?,?,?,?,?)}";
             cnx = conexion.geConnection(); 
             cstmt01 = cnx.prepareCall(SQLCLL01);
             
@@ -315,37 +280,15 @@ public class UsuarioDAO {
             cstmt01.setInt(3, input.getTipoDocumento());
             cstmt01.setString(4, input.getNumeroDocumento());
             cstmt01.setString(5, input.getTelefono());
-            cstmt01.setString(6, input.getContrasenia());
-            cstmt01.setString(7, input.getCorreo());
-            cstmt01.setBoolean(8, input.isCambiarContrasenia());
-            cstmt01.setInt(9, input.getEstado());
-            cstmt01.setString(10, input.getUsuario());
-            cstmt01.execute();
-            
-            if(!input.getId().equals("")){
-                //eliminar roles
-                SQLCLL01 = "{CALL uspUsuarioRolEliminar(?)}";
-                cstmt01 = cnx.prepareCall(SQLCLL01);
-                cstmt01.setString(1, input.getId());
-                cstmt01.execute();           
-            
-                for (String rol : input.getRoles()) {
-                    //crear rol
-                    SQLCLL01 = "{CALL uspUsuarioRolGuardar(?,?,?,?)}";
-                    cstmt01 = cnx.prepareCall(SQLCLL01);
-                    cstmt01.setString(1, input.getId());
-                    cstmt01.setString(2, rol);
-                    cstmt01.setString(3, input.getUsuario());
-                    cstmt01.setBoolean(4, false); 
-                    cstmt01.execute();
-                }
-            }
-            
+            cstmt01.setString(6, input.getIdZonalVenta());
+            cstmt01.setInt(7, input.getEstado());
+            cstmt01.setString(8, input.getUsuario());
+            cstmt01.execute();   
             cnx.commit();
             
             checkstatus.setId(input.getId());
             checkstatus.setApiEstado(Status.Ok);
-            checkstatus.setApiMensaje(Mensaje.GuardarUsuario);
+            checkstatus.setApiMensaje(Mensaje.GuardarRepartidor);
 
             cnx.commit();
         } catch (Exception e) {
@@ -366,7 +309,7 @@ public class UsuarioDAO {
         CheckStatus checkstatus = new CheckStatus();
         CallableStatement cstmt01 = null;
         ResultSet rs01 = null;
-        String SQLCLL01 = "{CALL uspUsuarioEliminar(?)}";
+        String SQLCLL01 = "{CALL uspRepartidorEliminar(?)}";
         
         Connection cnx = null; 
         try {
@@ -378,7 +321,7 @@ public class UsuarioDAO {
             cnx.commit();
             
             checkstatus.setApiEstado(Status.Ok);
-            checkstatus.setApiMensaje(Mensaje.EliminarUsuario);
+            checkstatus.setApiMensaje(Mensaje.EliminarRepartidor);
             
          } catch (SQLException ex) {
             String data = ex.getMessage();          
@@ -403,4 +346,3 @@ public class UsuarioDAO {
         return checkstatus;
     }
 }
-

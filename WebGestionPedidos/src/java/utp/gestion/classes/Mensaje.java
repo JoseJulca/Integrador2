@@ -35,6 +35,7 @@ public class Mensaje {
     public static String CorreoDuplicado = "El Correo de Usuario que intentas ingresar ya est\u00e1 en uso.";
     public static String UsuarioNombreDuplicado = "El Nombre de Usuario que intentas ingresar ya est\u00e1 en uso.";
     public static String UsuarioDuplicado = "Este usuario ya existe.";
+    public static String EliminarUsuario = "Se elimin\u00f3 Usuario satisfactoriamente.";
     
     //Item
     public static String GuardarItem="Se guard\u00f3 Producto satisfactoriamente.";
@@ -68,4 +69,36 @@ public class Mensaje {
     //Zonal
     public static String NoExistenZonal ="No existen Zonales.";
     public static String CoberturaInValida ="Dirección fuera de rango de cobertura.";
+    
+    
+    // repartidor
+    public static String GuardarRepartidor = "Se guard\u00f3 Repartidor satisfactoriamente.";
+    public static String EliminarRepartidor = "Se elimin\u00f3 Repartidor satisfactoriamente.";
+    public static String RepartidorNombreVacio = "Has omitido ingresar un Nombre de Repartidor.";
+    public static String RepartidorNombreMax = "El Nombre que est\u00e1s intentando ingresar tiene m\u00e1s de 100 caracteres.";
+    
+    //Pedido
+    public static String GuardarPedido="Se guard\u00f3 Pedido satisfactoriamente.";
+    public static String NoExistenPedido ="No existen Pedidos.";
+    public static String NoExistePedido ="No existe Pedido.";
+    public static String EliminarPedido = "Se elimin\u00f3 Pedido satisfactoriamente.";
+    public static String PedidoNombre = "Has omitido ingresar un Nombre del cliente.";
+    public static String PedidoTipoDocumento = "Seleccione un tipo de documento v\u00e1lido.";
+    public static String PedidoNumeroDocumentoDNI = "Debe ingresar un dni v\u00e1lido.";
+    public static String PedidoNumeroDocumentoRUC = "Debe ingresar un ruc v\u00e1lido.";
+    public static String PedidoDireccion = "Debe ingresar una direccion.";
+    public static String PedidoItemCero = "Seleccione un item v\u00e1lido.";
+    public static String PedidoItemDuplicado = "Items duplicados.";
+    public static String PedidoItemPrecio = "El precio de los Items seleccionados ha cambiado.";
+    public static String PedidoLatitud = "Debe ingresar una latitud de direccion.";
+    public static String PedidoLongitud = "Debe ingresar una longitud de direccion.";
+    public static String PedidoReferencia = "Debe ingresar una referencia.";
+    public static String PedidoDistrito = "Debe ingresar un distrito.";
+    public static String PedidoTipoPago = "Seleccione un medio de pago v\u00e1lido.";
+    public static String PedidoTipoComprobante = "Seleccion un tipo de comprobante v\u00e1lido.";
+    public static String PedidoClienteCP = "Debe ingresar un cliente para el comprobante para el comprobante.";
+    public static String PedidoTipoDocumentoCP = "Seleccione un tipo de documento v\u00e1lido para el comprobante.";
+    public static String PedidoNumeroDocumentoDNICP = "Debe ingresar un dni v\u00e1lido para el comprobante.";
+    public static String PedidoNumeroDocumentoRUCCP = "Debe ingresar un ruc v\u00e1lido para el comprobante.";
+    public static String PedidoDireccionCP = "Debe ingresar una direccion para el comprobante.";
 }

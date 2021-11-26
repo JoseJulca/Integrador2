@@ -410,3 +410,34 @@ REFERENCES [dbo].[ZonalVenta] ([IdZonalVenta])
 GO
 ALTER TABLE [dbo].[ZonalVentaUbicacion] CHECK CONSTRAINT [fkZonalVentaUbicacionTieneZonalVenta]
 GO
+
+CREATE TABLE [dbo].[Repartidor](
+	[IdRepartidor] [uniqueidentifier] NOT NULL,
+	[Codigo] [varchar](20) NOT NULL,
+	[IdZonalVenta] [uniqueidentifier] NOT NULL,
+	[IdPersona] [uniqueidentifier] NOT NULL,	
+	[Estado] [int] NOT NULL,
+	[UsuarioCreacion] [varchar](500) NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UsuarioEdicion] [varchar](500) NOT NULL,
+	[FechaEdicion] [datetime] NOT NULL,
+	[Eliminado] [bit] NOT NULL,
+ CONSTRAINT [XPKRepartidor] PRIMARY KEY CLUSTERED 
+(
+	[IdRepartidor] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+ALTER TABLE [dbo].[Repartidor]  WITH CHECK ADD  CONSTRAINT [fkRepartidorTieneZonalVenta] FOREIGN KEY([IdZonalVenta])
+REFERENCES [dbo].[ZonalVenta] ([IdZonalVenta])
+GO
+ALTER TABLE [dbo].[Repartidor] CHECK CONSTRAINT [fkRepartidorTieneZonalVenta]
+GO
+
+ALTER TABLE [dbo].[Repartidor]  WITH CHECK ADD  CONSTRAINT [fkRepartidorTienePersona] FOREIGN KEY([IdPersona])
+REFERENCES [dbo].[Persona] ([IdPersona])
+GO
+ALTER TABLE [dbo].[Repartidor] CHECK CONSTRAINT [fkRepartidorTienePersona]
+GO
