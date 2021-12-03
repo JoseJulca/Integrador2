@@ -41,7 +41,7 @@ var AsignarGuardar = function () {
             var me = this;
             var result = true, mensaje = "";
             
-            if ($("#sltZonal").val() === "") {
+            if ($("#sltZonal").val() === "-") {
                 mensaje += "Has omitido seleccionar una zonal.";
                 result = false;
             }
@@ -52,7 +52,7 @@ var AsignarGuardar = function () {
             }
             
             if (seleccionados.length === 0) {
-                mensaje += "Has omitido seleccionar al menos un Peddido.";
+                mensaje += "Has omitido seleccionar al menos un Pedido.";
                 result = false;
             }
             
@@ -94,6 +94,7 @@ var AsignarGuardar = function () {
             console.log(data);
             if (me.valida()){
                 var exito = function(rpta){
+                    console.log(rpta);
                     if(rpta.apiEstado === "ok"){
                         BI.defaultSuccess(rpta);
                         

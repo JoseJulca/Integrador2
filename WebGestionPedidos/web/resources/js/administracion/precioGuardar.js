@@ -53,9 +53,8 @@ var PrecioGuardar = function () {
                 result = false;
             }
             else{
-                var d = new Date();
-                var fechaActual = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-                
+                var d = new Date();                
+                var fechaActual = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate().toString().padStart(2,"0");
                 if($("#txtVigenciaDesde").val()<fechaActual){
                     mensaje += "Fecha de Vigencia menor a la actual.";
                     result = false;

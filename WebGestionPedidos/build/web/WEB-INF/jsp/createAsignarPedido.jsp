@@ -27,7 +27,7 @@
                             <label class="col-sm-3 col-form-label position-static">(*) Zonal de Venta</label>
                             <div class="col-sm-6 col-md-6 col-lg-6">
                                 <select id="sltZonal" name="sltZonal" class="custom-select">
-                                    <option value="">-- Seleccione Zonal Venta --</option>
+                                    <option value="-">-- Seleccione Zonal Venta --</option>
                                 </select>
                             </div>
                         </div>

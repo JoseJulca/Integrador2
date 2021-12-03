@@ -431,7 +431,7 @@ public class PedidoDAO {
             checkstatus.setId(id);
             checkstatus.setCodigo(codigo);
             checkstatus.setApiEstado(Status.Ok);
-            checkstatus.setApiMensaje(Mensaje.GuardarPrecio);
+            checkstatus.setApiMensaje(Mensaje.GuardarPedido);
             
             cnx.commit();
         
@@ -516,7 +516,7 @@ public class PedidoDAO {
             
             checkstatus.setId(input.getId());
             checkstatus.setApiEstado(Status.Ok);
-            checkstatus.setApiMensaje(Mensaje.GuardarPrecio);
+            checkstatus.setApiMensaje(Mensaje.GuardarPedido);
             
         } catch (Exception e) {
             checkstatus.setApiEstado(Status.Error);

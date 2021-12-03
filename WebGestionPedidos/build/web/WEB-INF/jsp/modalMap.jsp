@@ -66,7 +66,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">BÃºsqueda de la direcciÃ³n:</h4>
+                <h4 class="modal-title">Búsqueda de la dirección:</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
