@@ -18,6 +18,7 @@ var PedidoGuardar = function () {
         productos:[],
         productosP:[],
         sltProducto:null,
+        total:0,
         apis: {
             urlSingle: 'pedido/getSingle',
             urlGuardar: 'pedido/save',
@@ -79,7 +80,7 @@ var PedidoGuardar = function () {
             
             me.guardarCambiosDeLista();
             me.loadZonalVenta();
-            me.initMapa('-12.062106', '-77.036526');
+            me.initMapa('-12.062106', '-77.036526');            
         },
         valida: function () {
             var me = this;
@@ -136,8 +137,7 @@ var PedidoGuardar = function () {
             }
             else{
                 var d = new Date();
-                var fechaActual = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-                
+                var fechaActual = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate().toString().padStart(2,"0");
                 if($("#dtFecha").val()<fechaActual){
                     mensaje += "Fecha de Pedido menor a la actual.";
                     result = false;
@@ -308,6 +308,7 @@ var PedidoGuardar = function () {
             
             $("#txtMonto").val('S/ ' + parseFloat(rpta.total).toFixed(2));
             $("#total").val('S/ ' + parseFloat(rpta.total).toFixed(2));
+            me.total = parseFloat(rpta.total).toFixed(2);
             $("#txtComentario").val(rpta.observacion);
             
             $("#sltTipoDocumentoCP").val(rpta.tipoDocumentoCP);
@@ -316,6 +317,7 @@ var PedidoGuardar = function () {
             $("#txtClienteCP").val(rpta.nombreCP);
             
             $.each(rpta.items, function (index, value) {
+                console.log(value);
                 me.agregarProducto(value, "");
             });
             
@@ -382,8 +384,58 @@ var PedidoGuardar = function () {
 
                         if (codigo.length !== 0) {
                             $('#codigo').val(codigo);
+                            
+                            let itemList= data.items.map(x => {
+                                return "x"+ x.cantidad + " " + x.producto;
+                            });
+                            console.log(itemList);
+                            var parts = data.fechaPedido.split("/");
+                            console.log(parts);
+                            var docData = {
+                                cliente: data.nombre,
+                                codigo: codigo,
+                                direccion: data.direccion,
+                                distrito: $("#txtDistrito").val(),
+                                estado:data.estado,
+                                fechaPedido: firebase.firestore.Timestamp.fromDate(new Date(parts[1]+"/"+parts[0]+"/"+parts[2])),
+                                idUsuario:"",
+                                idZonalVenta: data.idZonalVenta,
+                                referencia: data.referencia,
+                                telefono: data.telefono,
+                                total: me.total,
+                                latitud:data.latitud,
+                                longitud:data.longitud,
+                                item: itemList
+                            };
+                            
+                            db.collection("pedidos").doc(id).set(docData).then(() => {
+                                console.log("Document successfully create!");
+                            });
                         }
-                        
+                        else{
+                            let itemList= data.items.map(x => {
+                                return "x"+ x.cantidad + " " + x.producto;
+                            });
+                            
+                            var parts = data.fechaPedido.split("/");
+                            console.log(parts);
+                            db.collection("pedidos").doc(id).update({
+                                cliente: data.nombre,
+                                direccion: data.direccion,
+                                distrito: $("#txtDistrito").val(),
+                                estado:data.estado,
+                                fechaPedido: firebase.firestore.Timestamp.fromDate(new Date(parts[1]+"/"+parts[0]+"/"+parts[2])),
+                                idZonalVenta: data.idZonalVenta,
+                                referencia: data.referencia,
+                                telefono: data.telefono,
+                                total: me.total,
+                                latitud:data.latitud,
+                                longitud:data.longitud,
+                                item: itemList
+                            }).then(function() {
+                              console.log("Document successfully update!");
+                            });
+                        }
                     }else{
                         BI.MostrarPopupError(rpta.apiMensaje);
                     }
@@ -518,7 +570,7 @@ var PedidoGuardar = function () {
             for (var i = 0; i < me.productos.length; i++) {
                 total += me.productos[i].total;
             }
-            
+            me.total = parseFloat(total).toFixed(2);
             $('#total').add('text-align', 'right').val('S/ ' + parseFloat(total).toFixed(2));
             $('#txtMonto').add('text-align', 'right').val('S/ ' + parseFloat(total).toFixed(2));
         },
@@ -603,6 +655,12 @@ var PedidoGuardar = function () {
                     col.attr("data-idItem", idProducto);
                     var item = parseInt($(this).attr("data-item"), 10);
                     var nombre = "";
+                    
+                    me.productosP.forEach(function (p) {
+                        if (p.id === idProducto) {
+                            nombre = p.nombre;
+                        }
+                    });
 
                     me.getTarifa(idProducto, $(this), item);
                     me.productos.forEach(function (p) {

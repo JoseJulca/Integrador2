@@ -81,6 +81,7 @@ public class PedidoDAO {
                 mapRtn.put("codigo", rs01.getString("codigo").trim());
                 mapRtn.put("fecha", rs01.getString("fecha").trim());
                 mapRtn.put("distrito", rs01.getString("distrito").trim());
+                mapRtn.put("direccion", rs01.getString("direccion").trim());
                 mapRtn.put("zonal", rs01.getString("zonal").trim());
                 mapRtn.put("cantidad", rs01.getInt("cantidad"));
                 mapRtn.put("nombreEstado", rs01.getString("nombreEstado").trim());
@@ -317,6 +318,7 @@ public class PedidoDAO {
                     pedidoItem.setIdItem(rs01.getString("idItem"));
                     pedidoItem.setCantidad(rs01.getInt("cantidad"));
                     pedidoItem.setPrecioVenta(rs01.getDouble("precioVenta"));
+                    pedidoItem.setNombre(rs01.getString("nombre"));
                     lista.add(pedidoItem);
                 }
                 pedido.setItems(lista);

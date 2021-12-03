@@ -76,6 +76,7 @@ public class Mensaje {
     public static String EliminarRepartidor = "Se elimin\u00f3 Repartidor satisfactoriamente.";
     public static String RepartidorNombreVacio = "Has omitido ingresar un Nombre de Repartidor.";
     public static String RepartidorNombreMax = "El Nombre que est\u00e1s intentando ingresar tiene m\u00e1s de 100 caracteres.";
+    public static String NoExistenRepartidor ="No existen Repartidores.";
     
     //Pedido
     public static String GuardarPedido="Se guard\u00f3 Pedido satisfactoriamente.";
@@ -101,4 +102,12 @@ public class Mensaje {
     public static String PedidoNumeroDocumentoDNICP = "Debe ingresar un dni v\u00e1lido para el comprobante.";
     public static String PedidoNumeroDocumentoRUCCP = "Debe ingresar un ruc v\u00e1lido para el comprobante.";
     public static String PedidoDireccionCP = "Debe ingresar una direccion para el comprobante.";
+    
+    //Asginación
+    public static String NoExistenAsignacion ="No existen Asignaciones.";
+    public static String NoExisteAsignacion ="No existe Asignación.";
+    public static String GuardarAsignacion = "Se guard\u00f3 la Asignación satisfactoriamente.";
+    public static String RepartidorAsignacion = "Has omitido seleccionar un Repartidor.";
+    public static String AsignacionPedidoCero = "Has omitido asignar pedidos al Repartidor.";
+    public static String EliminarAsignacion = "Se elimin\u00f3 la Asignación satisfactoriamente.";
 }

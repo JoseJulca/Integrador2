@@ -16,7 +16,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-6 col-lg-6 row">
-                        <label id="lblNombre" class="col-sm-3 col-form-label position-static">(*)RazÃ³n Social o Nombre:</label>
+                        <label id="lblNombre" class="col-sm-3 col-form-label position-static">(*)Razón Social o Nombre:</label>
                         <div class="col-sm-8 col-md-8 col-lg-9">
                             <input id="txtClienteCP" type="text" class="form-control" value="" />
                         </div>
@@ -40,14 +40,14 @@
                     </div>
 
                     <div class="form-group col-md-6 col-lg-6 row">
-                        <label class="col-sm-3 col-form-label position-static">(*) NÃºmero Documento:</label>
+                        <label class="col-sm-3 col-form-label position-static">(*) Número Documento:</label>
                         <div class="col-sm-9 col-md-9 col-lg-9">
                             <input id="txtNumeroDocumentoCP" maxlength="100" name="txtNumeroDocumentoCP" type="text" class="form-control" value="" />
                         </div>
                     </div>
 
                     <div class="form-group col-md-6 col-lg-6 row">
-                        <label class="col-sm-3 col-form-label  position-static">(*)DirecciÃ³n:</label>
+                        <label class="col-sm-3 col-form-label  position-static">(*)Dirección:</label>
                         <div class="col-sm-8 col-md-8 col-lg-9">
                             <input type="text" class="form-control" id="txtDireccionCP" value="" />
                         </div>

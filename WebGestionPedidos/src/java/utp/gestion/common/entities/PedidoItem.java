@@ -17,6 +17,7 @@ public class PedidoItem extends BaseEntity{
     private String idItem;
     private int cantidad;
     private double precioVenta;
+    private String nombre;
     
     /**
      * @return the id
@@ -86,5 +87,18 @@ public class PedidoItem extends BaseEntity{
      */
     public void setPrecioVenta(double precioVenta) {
         this.precioVenta = precioVenta;
-    }     
+    } 
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }    
 }

@@ -122,6 +122,7 @@ CREATE TABLE [dbo].[Pedido](
 	[TipoDocumentoCP] [int] NULL,
 	[NumeroDocumentoCP] [varchar](20) NULL,
 	[DireccionCP] [varchar](2000) NULL,
+	[IdRepartidor] [uniqueidentifier] NULL,
 	[UsuarioCreacion] [varchar](500) NOT NULL,
 	[FechaCreacion] [datetime] NOT NULL,
 	[UsuarioEdicion] [varchar](500) NOT NULL,
@@ -353,6 +354,25 @@ CREATE TABLE [dbo].[ZonalVentaUbicacion](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+CREATE TABLE [dbo].[Repartidor](
+	[IdRepartidor] [uniqueidentifier] NOT NULL,
+	[Codigo] [varchar](20) NOT NULL,
+	[IdZonalVenta] [uniqueidentifier] NOT NULL,
+	[IdPersona] [uniqueidentifier] NOT NULL,	
+	[Estado] [int] NOT NULL,
+	[UsuarioCreacion] [varchar](500) NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UsuarioEdicion] [varchar](500) NOT NULL,
+	[FechaEdicion] [datetime] NOT NULL,
+	[Eliminado] [bit] NOT NULL,
+ CONSTRAINT [XPKRepartidor] PRIMARY KEY CLUSTERED 
+(
+	[IdRepartidor] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 ALTER TABLE [dbo].[ZonalVenta] ADD  DEFAULT ((0)) FOR [EsPropio]
 GO
 ALTER TABLE [dbo].[Pedido]  WITH CHECK ADD  CONSTRAINT [fkPedidoTieneZonalVenta] FOREIGN KEY([IdZonalVenta])
@@ -410,25 +430,11 @@ REFERENCES [dbo].[ZonalVenta] ([IdZonalVenta])
 GO
 ALTER TABLE [dbo].[ZonalVentaUbicacion] CHECK CONSTRAINT [fkZonalVentaUbicacionTieneZonalVenta]
 GO
-
-CREATE TABLE [dbo].[Repartidor](
-	[IdRepartidor] [uniqueidentifier] NOT NULL,
-	[Codigo] [varchar](20) NOT NULL,
-	[IdZonalVenta] [uniqueidentifier] NOT NULL,
-	[IdPersona] [uniqueidentifier] NOT NULL,	
-	[Estado] [int] NOT NULL,
-	[UsuarioCreacion] [varchar](500) NOT NULL,
-	[FechaCreacion] [datetime] NOT NULL,
-	[UsuarioEdicion] [varchar](500) NOT NULL,
-	[FechaEdicion] [datetime] NOT NULL,
-	[Eliminado] [bit] NOT NULL,
- CONSTRAINT [XPKRepartidor] PRIMARY KEY CLUSTERED 
-(
-	[IdRepartidor] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+ALTER TABLE [dbo].[Pedido]  WITH CHECK ADD  CONSTRAINT [fkPedidoTieneRepartidor] FOREIGN KEY([IdRepartidor])
+REFERENCES [dbo].[Repartidor] ([IdRepartidor])
 GO
-
+ALTER TABLE [dbo].[Pedido] CHECK CONSTRAINT [fkPedidoTieneRepartidor]
+GO
 
 ALTER TABLE [dbo].[Repartidor]  WITH CHECK ADD  CONSTRAINT [fkRepartidorTieneZonalVenta] FOREIGN KEY([IdZonalVenta])
 REFERENCES [dbo].[ZonalVenta] ([IdZonalVenta])

@@ -32,6 +32,12 @@
         <link href="${pageContext.request.contextPath}/resources/css/material-icons.css" rel="stylesheet" type="text/css" />
         <link href="${pageContext.request.contextPath}/resources/css/master.css" rel="stylesheet" type="text/css" />
         <link href="${pageContext.request.contextPath}/resources/css/site.css" rel="stylesheet" type="text/css"/>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-functions.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>  
+        <script src="${pageContext.request.contextPath}/resources/js/firebase/init.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gestion de Pedidos Delivery</title>
     </head>
